@@ -2,15 +2,28 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Transform hitEffect;
+    public int health;
+    public int maxHealth = 100;
+    public int damagePoints = 5;
+
+    public void Start()
     {
-        
+        health = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayerDamage()
     {
-        
+        if (health > 0)
+        {
+            damagePoints -= health;
+        }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerDamage();
+        }
     }
 }
