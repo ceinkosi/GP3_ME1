@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private InputAction moveAction;         // Input action for movement
     private InputAction lookAction;         // Input action for looking around
     private InputAction jumpAction;         // Input action for jumping
+    private InputAction lightAttackAction;   // Input action for light attacks
 
 
     void Awake()
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
+        lightAttackAction = playerInput.actions["Light Attack"]; 
     }
 
     void OnEnable()     // Subscribe to input actions when the script is enabled
@@ -62,6 +64,9 @@ public class Player : MonoBehaviour
 
         jumpAction.Enable();
         jumpAction.performed += OnJump;
+
+        lightAttackAction.Enable();
+        lightAttackAction.performed += OnLightAttack;
     }
 
     void OnDisable()   // Unsubscribe from input actions when the script is disabled
@@ -73,6 +78,8 @@ public class Player : MonoBehaviour
         lookAction.canceled -= OnLook;
 
         jumpAction.performed -= OnJump;
+
+        lightAttackAction.performed -= OnLightAttack;
     }
 
     // Called whenever Move input changes
@@ -94,6 +101,11 @@ public class Player : MonoBehaviour
             // Jump velocity based on physics equation
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+    }
+
+    public void OnLightAttack(InputAction.CallbackContext context)
+    {
+        
     }
 
     void Update()
